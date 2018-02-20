@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Hello World</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="example"></div>
+
+<script type="text/babel">
+
+    class Block extends React.Component{
+        render () {
+            const num = 20;
+            return (
+                <div className="test">
+                    <span>Alex {num + 8} </span>
+                </div>
+            );
+        }
+    }
+
+    class Game extends React.Component{
+        render () {
+            return (
+                <div>
+                    <span>{this.props.name}</span>
+                    <strong> {this.props.age}</strong>
+                </div>
+            );
+        }
+    }
+
+    class Task extends React.Component{
+        edit() {
+            console.log('Change');
+        };
+        remove() {
+            console.log('Delete');
+        };
+        render () {
+            return (
+                <div className="box">
+                    <div className="text">{this.props.children}</div>
+                    <button className="btn" onClick={this.edit}>Change</button>
+                    <button className="btn" onClick={this.remove}>Delete</button>
+                </div>
+            );
+        }
+    }
+
+    const app = document.getElementById('example');
+
+    ReactDOM.render(
+        <div className="wrapper">
+            <Block/>
+            <Game name={"Forza"} age={"18"}/>
+            <Game name={"Mortal Combat"} age={"5+"}/>
+            <Game name={"GTA 5"} age={"12+"}/>
+            <Task>Hey man</Task>
+            <Task>Hey girl</Task>
+            <Task>Hey Vasya</Task>
+        </div>,
+        app
+    );
+
+</script>
+<!--
+  Note: this page is a great way to try React but it's not suitable for production.
+  It slowly compiles JSX with Babel in the browser and uses a large development build of React.
+
+  To set up a production-ready React build environment, follow these instructions:
+  * https://reactjs.org/docs/add-react-to-a-new-app.html
+  * https://reactjs.org/docs/add-react-to-an-existing-app.html
+
+  You can also use React without JSX, in which case you can remove Babel:
+  * https://reactjs.org/docs/react-without-jsx.html
+  * https://reactjs.org/docs/cdn-links.html
+-->
+</body>
+</html>
