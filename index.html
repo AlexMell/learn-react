@@ -37,13 +37,25 @@
     }
 
     class Task extends React.Component{
-        edit() {
-            console.log('Change');
+        constructor(props) {
+            super(props);
+            this.state = {
+                edit: false
+            };
+            this.save = this.save.bind(this);
+
+
+        }
+        edit = () => {
+            this.setState({edit: true});
         };
-        remove() {
+        remove = () => {
             console.log('Delete');
         };
-        render () {
+        save = () => {
+            this.setState({edit: false})
+        };
+        renderNorm = () => {
             return (
                 <div className="box">
                     <div className="text">{this.props.children}</div>
@@ -51,6 +63,49 @@
                     <button className="btn" onClick={this.remove}>Delete</button>
                 </div>
             );
+        };
+        renderEdit = () => {
+            return (
+                <div className="box">
+                    <textarea defaultValue={this.props.children}></textarea>
+                    <button className="btn" onClick={this.save}>Save</button>
+                </div>
+            );
+        };
+        render = () => {
+            if (this.state.edit) {
+                return this.renderEdit();
+            } else {
+                return this.renderNorm();
+            }
+        }
+    }
+
+    class Check extends React.Component{
+        constructor() {
+            super();
+            this.state = {checked: true};
+            this.handleCheck = this.handleCheck.bind(this);
+        };
+        handleCheck() {
+            this.setState({
+                checked: !this.state.checked
+            });
+        }
+        render () {
+            var message;
+            if (this.state.checked) {
+                message = 'checked'
+            } else {
+                message = 'not checked'
+            }
+
+            return (
+                <div>
+                    <input type="checkbox" onChange={this.handleCheck} defaultChecked={this.state.checked}/>
+                    <p>Checkbox {message}</p>
+                </div>
+            )
         }
     }
 
@@ -63,8 +118,8 @@
             <Game name={"Mortal Combat"} age={"5+"}/>
             <Game name={"GTA 5"} age={"12+"}/>
             <Task>Hey man</Task>
+            <Check></Check>
             <Task>Hey girl</Task>
-            <Task>Hey Vasya</Task>
         </div>,
         app
     );
