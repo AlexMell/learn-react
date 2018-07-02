@@ -43,16 +43,15 @@
                 edit: false
             };
             this.save = this.save.bind(this);
-
-
         }
         edit = () => {
             this.setState({edit: true});
         };
         remove = () => {
-            console.log('Delete');
+            this.props.deleteBlock (this.props.index);
         };
         save = () => {
+            this.props.update (this.refs.newTxt.value, this.props.index);
             this.setState({edit: false})
         };
         renderNorm = () => {
@@ -67,10 +66,10 @@
         renderEdit = () => {
             return (
                 <div className="box">
-                    <textarea defaultValue={this.props.children}></textarea>
+                    <textarea ref="newTxt" defaultValue={this.props.children}></textarea>
                     <button className="btn" onClick={this.save}>Save</button>
                 </div>
-            );
+            )
         };
         render = () => {
             if (this.state.edit) {
@@ -108,19 +107,61 @@
             )
         }
     }
-
+    
+    class Field extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                tasks: [
+                    'test 1',
+                    'test 2',
+                    'test 3'
+                ],
+            };
+        };
+        add = (text) => {
+            var arr = this.state.tasks;
+            arr.push(text);
+            this.setState({tasks: arr});
+        }
+        deleteBlock = (i) => {
+            var arr = this.state.tasks;
+            arr.splice (i, 1);
+            this.setState({ tasks: arr });
+        };
+        updateText = (text, i) => {
+            var arr = this.state.tasks;
+            arr[i] = text;
+            this.setState ({ tasks: arr });
+        };
+        eachTask = (item, i) => {
+            return (
+                <Task key={i} index={i} update={this.updateText} deleteBlock={this.deleteBlock} className="task-name">
+                    {item}
+                </Task>)
+        };
+        render () {
+            return (
+                <div className="field">
+                    <button className="btn btn-new" onClick={this.add.bind(null, 'Default task')}>New tasks</button>
+                    {this.state.tasks.map(this.eachTask)}
+                </div>
+            )
+        }
+    }
     const app = document.getElementById('example');
 
     ReactDOM.render(
-        <div className="wrapper">
-            <Block/>
-            <Game name={"Forza"} age={"18"}/>
-            <Game name={"Mortal Combat"} age={"5+"}/>
-            <Game name={"GTA 5"} age={"12+"}/>
-            <Task>Hey man</Task>
-            <Check></Check>
-            <Task>Hey girl</Task>
-        </div>,
+        // <div className="wrapper">
+        //     <Block/>
+        //     <Game name={"Forza"} age={"18"}/>
+        //     <Game name={"Mortal Combat"} age={"5+"}/>
+        //     <Game name={"GTA 5"} age={"12+"}/>
+        //     <Task>Hey man</Task>
+        //     <Check></Check>
+        //     <Task>Hey girl</Task>
+        // </div>,
+        <Field />,
         app
     );
 
