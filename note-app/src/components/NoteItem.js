@@ -17,7 +17,7 @@ const NoteItem = ({note, index, onClick}) => {
     const classes = useStyles();
     
     return (
-        <ListItem key={index} button={true} onClick={() => onClick(note.id)}>
+        <ListItem key={index} button={true} onClick={event => onClick(note.id)}>
             <ListItemText 
                 primary={`${note.noteTitle}`}
                 className={classes.titleText}

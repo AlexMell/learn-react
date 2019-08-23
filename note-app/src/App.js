@@ -32,19 +32,29 @@ const notes = [
         noteContent: "Note3  Contentasdasdsa asdsad"
     }
 ];
+  
 
-localStorage.setItem("notes", JSON.stringify(notes));
-var storedNames = JSON.parse(localStorage.getItem("notes"));
 
 function App() {
 
     const classes = useStyles();
 
-    function clickedId(id) {
-        var asd = id;
-        return asd;
-    }
+    const useStateWithLocalStorage = localStorageKey => {
 
+        const [value, setValue] = React.useState(
+            JSON.parse(localStorage.getItem("notes"))
+        );
+
+        React.useEffect(() => {
+            localStorage.setItem("notes", JSON.stringify(notes));
+        })
+
+        return [value, setValue]
+    };
+
+
+    const [value, setValue] = useStateWithLocalStorage('myArrayinLocalStorage');
+    const handleClick = event => console.log(event);
 
     return (
         <React.Fragment>
@@ -53,12 +63,12 @@ function App() {
                     <Grid item xs={4}>
                         <Paper>
                             <NoteBar />
-                            <NoteList notes={storedNames} onClicked={clickedId} />
+                            <NoteList notes={value} handleClick={handleClick}/>
                         </Paper>
                     </Grid>
                     <Grid item xs={8}>
                         <Paper>
-                            <NoteEdit title={notes} />
+                            <NoteEdit greeting={handleClick()} />
                         </Paper>
                     </Grid>
                 </Grid>

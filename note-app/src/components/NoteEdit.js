@@ -23,6 +23,7 @@ const NoteEdit = (props) => {
     return (
         <div>
             <div>
+                {props.greeting}
             </div>
             <TextareaAutosize
                 className={classes.textarea}
