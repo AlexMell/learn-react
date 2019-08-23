@@ -12,16 +12,17 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-const NoteItem = ({note, index, noteTitle}) => {
+const NoteItem = ({note, index, onClick}) => {
 
     const classes = useStyles();
     
     return (
-        <ListItem key={index} button>
+        <ListItem key={index} button={true} onClick={() => onClick(note.id)}>
             <ListItemText 
-                primary={`${note.noteTitle} ${index + 1}`}
+                primary={`${note.noteTitle}`}
                 className={classes.titleText}
-            />
+            >
+            </ListItemText>
             <ListItemSecondaryAction>
                 <Button variant="contained" color="secondary">
                     <DeleteIcon></DeleteIcon>

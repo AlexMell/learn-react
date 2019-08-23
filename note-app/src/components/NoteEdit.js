@@ -1,6 +1,5 @@
 import React from 'react';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/styles';
 
 const useStyle = makeStyles(theme => ({
@@ -17,21 +16,20 @@ const useStyle = makeStyles(theme => ({
     }
 }));
 
-const NoteEdit = () => {
+const NoteEdit = (props) => {
 
     const classes = useStyle();
     
     return (
         <div>
-            <Typography variant="h5" className={classes.title}>
-                Title
-            </Typography>
+            <div>
+            </div>
             <TextareaAutosize
                 className={classes.textarea}
                 defaultValue="Default Text"
             />
         </div>
-    );
+    )
 }
 
 export default NoteEdit;

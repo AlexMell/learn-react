@@ -26,8 +26,6 @@ function App() {
         })
   }, [])
 
-//  let todos =
-
   function toggleTodo(id) {
     setTodos ( todos.map(todo => {
       if (todo.id === id) {
