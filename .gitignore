@@ -1,6 +1,12 @@
 # Created by .ignore support plugin (hsz.mobi)
 
-.idea
 
-react-learning/node_modules
-note-app/node_modules
+// Files
+yarn.lock
+
+
+// Folders
+node_modules/
+.vscode/
+.idea/
+
