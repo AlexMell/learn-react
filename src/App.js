@@ -3,6 +3,9 @@ import TodoList from './Todo/TodoList';
 import Context from './context';
 import Loader from './Todo/Loader'
 import Modal from './Modal/Modal'
+import { MemoTask } from './Memo/MemoTask'
+import { MemoTask2 } from './Memo/MemoTask2'
+import { MemoTask3 } from './Memo/MemoTask3'
 
 const AddTodo = React.lazy(() => new Promise(resolve => {
   setTimeout(() => {
@@ -52,6 +55,10 @@ function App() {
       <div className="wrapper">
 
         <h1>React Tutorial</h1>
+
+        <MemoTask />
+        <MemoTask2 />
+        <MemoTask3 />
 
         <Modal/>
 

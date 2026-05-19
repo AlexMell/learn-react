@@ -1,12 +1,14 @@
-# Created by .ignore support plugin (hsz.mobi)
+# Dependencies
+node_modules/
 
+# Build
+build/
 
-// Files
+# Misc
+.DS_Store
 yarn.lock
 
-
-// Folders
-node_modules/
+# Editors
 .vscode/
 .idea/
 
