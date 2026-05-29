@@ -1,0 +1,31 @@
+.todo-app {
+  &__wrapper {
+    border: 2px solid #fff;
+    padding: 20px;
+    max-width: 320px;
+  }
+  &__list {
+    list-style: none;
+    padding: 0;
+    li {
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  &__item {
+    &--done {
+      color: red;
+    }
+  }
+  &__checkbox {
+    &-label {
+
+    }
+    &-input {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}

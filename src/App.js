@@ -1,80 +1,57 @@
-import React, {useEffect} from 'react';
-import TodoList from './Todo/TodoList';
-import Context from './context';
-import Loader from './Todo/Loader'
-import Modal from './Modal/Modal'
-import { MemoTask } from './Memo/MemoTask'
-import { MemoTask2 } from './Memo/MemoTask2'
-import { MemoTask3 } from './Memo/MemoTask3'
+import React, { useState } from 'react'
+import { UseState } from './Exercises/UseState'
+import { UseEffect } from './Exercises/UseEffect'
+import { UseRef } from './Exercises/UseRef'
+import { UseMemo } from './Exercises/UseMemo'
+import { UseContext } from './Exercises/UseContext'
+import { CustomHook } from './Exercises/CustomHook'
+import TodoApp from './Exercises/TodoApp'
 
-const AddTodo = React.lazy(() => new Promise(resolve => {
-  setTimeout(() => {
-    resolve(import('./Todo/AddTodo'))
-  }, 3000)
-}))
+const exercises = [
+  { label: 'useState',         Component: UseState },
+  { label: 'useEffect',        Component: UseEffect },
+  { label: 'useRef',           Component: UseRef },
+  { label: 'useMemo/Callback', Component: UseMemo },
+  { label: 'useContext',       Component: UseContext },
+  { label: 'Custom Hook',      Component: CustomHook },
+  { label: 'Todo App',         Component: TodoApp },
+]
 
-function App() {
-
-  const [todos, setTodos] = React.useState([])
-  const [loading, setLoading] = React.useState(true)
-
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/todos?_limit=5')
-        .then(response => response.json())
-        .then(todos => {
-          setTimeout(() => {
-            setTodos(todos)
-            setLoading(false)
-          }, 2000)
-        })
-  }, [])
-
-  function toggleTodo(id) {
-    setTodos ( todos.map(todo => {
-      if (todo.id === id) {
-        todo.completed = !todo.completed
-      }
-      return todo
-    }))
-  }
-
-  function removeTodo(id) {
-    setTodos(todos.filter(todo => todo.id !== id))
-  }
-
-  function addTodo(title) {
-    setTodos(todos.concat([{
-      title,
-      id: Date.now(),
-      completed: false
-    }]))
-  }
-
-  return (
-    <Context.Provider value={{ removeTodo }}>
-      <div className="wrapper">
-
-        <h1>React Tutorial</h1>
-
-        <MemoTask />
-        <MemoTask2 />
-        <MemoTask3 />
-
-        <Modal/>
-
-        <React.Suspense fallback={<Loader />}>
-          <AddTodo onCreate={addTodo} />
-        </React.Suspense>
-
-        {loading && <Loader />}
-
-        {
-          todos.length ? (<TodoList todos={todos} onToggle={toggleTodo} />) : (loading ? null : (<p>No todos!</p>))
-        }
-
-      </div>
-    </Context.Provider>
-  )
+const navStyle = {
+  display: 'flex',
+  gap: 8,
+  padding: '16px 24px',
+  borderBottom: '1px solid var(--border)',
+  flexWrap: 'wrap',
+  background: 'var(--surface)',
 }
 
-export default App;
+function btnStyle(active) {
+  return {
+    padding: '6px 14px',
+    cursor: 'pointer',
+    border: '1px solid var(--border)',
+    borderRadius: 4,
+    background: active ? 'var(--accent)' : 'transparent',
+    color: active ? 'var(--accent-text)' : 'var(--text)',
+    fontWeight: active ? 600 : 400,
+  }
+}
+
+export default function App() {
+  const [active, setActive] = useState(0)
+  const { Component } = exercises[active]
+
+  return (
+    <div>
+      <nav style={navStyle}>
+        {exercises.map((ex, i) => (
+          <button key={ex.label} style={btnStyle(i === active)} onClick={() => setActive(i)}>
+            {ex.label}
+          </button>
+        ))}
+      </nav>
+      <Component />
+    </div>
+  )
+}

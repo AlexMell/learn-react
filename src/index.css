@@ -1,3 +1,13 @@
+:root {
+  --bg: #1a1a1a;
+  --surface: #242424;
+  --border: #333;
+  --text: #e0e0e0;
+  --text-muted: #888;
+  --accent: #4d9fff;
+  --accent-text: #fff;
+}
+
 html {
   height: 100%;
 }
@@ -10,6 +20,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
+  background: var(--bg);
+  color: var(--text);
 }
 
 code {
@@ -19,6 +31,24 @@ code {
 
 #root {
   height: 100%;
+}
+
+input, button {
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 6px 10px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:hover {
+  border-color: var(--accent);
 }
 
 .wrapper {
